@@ -7,6 +7,7 @@ use std::fmt;
 pub enum DexError {
     JsonError(serde_json::Error),
     ReqwestError(reqwest::Error),
+    Other(String),
 }
 
 impl From<serde_json::Error> for DexError {
@@ -27,6 +28,7 @@ impl fmt::Display for DexError {
         match self {
             JsonError(e) => write!(f, "JsonError({})", e),
             ReqwestError(e) => write!(f, "ReqwestError({})", e),
+            Other(s) => write!(f, "Other({})", s),
         }
     }
 }

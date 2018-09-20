@@ -7,6 +7,8 @@ use pokemon::abilities::{PkAbility, PkAbilityJson};
 use pokemon::base_stats::{PkBaseStats, PkBaseStatJson};
 use ::dex_error::DexError;
 
+use serde_json::from_reader;
+
 #[derive(Debug)]
 pub struct Pokemon {
     pub id: u32,
@@ -47,11 +49,19 @@ pub struct PokemonJson {
     stats: Vec<PkBaseStatJson>,
 }
 
+use std::io::Read;
+
 impl Pokemon {
     pub fn fetch(name: String) -> Result<Pokemon, DexError> {
+        use reqwest::StatusCode;
         let url = String::from(format!("https://pokeapi.co/api/v2/pokemon/{}/", name));
         let resp = super::reqwest::get(&url)?;
-        let pk_json :PokemonJson = super::serde_json::from_reader(resp)?;
-        Ok(Pokemon::from(pk_json))
+        match resp.status() {
+            StatusCode::Ok => {
+                let pk :PokemonJson = from_reader(resp)?;
+                Ok(Pokemon::from(pk))
+            },
+            s => Err(DexError::Other(format!("{:?}", s))),
+        }
     }
 }
