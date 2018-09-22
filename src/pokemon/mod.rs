@@ -49,8 +49,6 @@ pub struct PokemonJson {
     stats: Vec<PkBaseStatJson>,
 }
 
-use std::io::Read;
-
 impl Pokemon {
     pub fn fetch(name: String) -> Result<Pokemon, DexError> {
         use reqwest::StatusCode;
