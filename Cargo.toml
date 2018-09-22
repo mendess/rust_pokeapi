@@ -1,5 +1,5 @@
 [package]
-name = "rust_dex"
+name = "rust_pokeapi"
 version = "0.1.0"
 authors = ["Mendess <pedro.mendes.26@gmail.com>"]
 

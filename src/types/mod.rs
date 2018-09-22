@@ -46,3 +46,36 @@ impl From<String> for TypeName {
         }
     }
 }
+
+pub struct Type {
+    id: i32,
+    name: TypeName,
+    dmg_relations: DmgRelations,
+}
+
+pub struct DmgRelations {
+    no_dmg_from: Vec<TypeName>,
+    hf_dmg_from: Vec<TypeName>,
+    db_dmg_from: Vec<TypeName>,
+    no_dmg_to: Vec<TypeName>,
+    hf_dmg_to: Vec<TypeName>,
+    db_dmg_to: Vec<TypeName>,
+}
+
+impl Type {
+    pub fn normal() -> Type{
+        use self::TypeName::*;
+        Type {
+            id: 1,
+            name: Normal,
+            dmg_relations: DmgRelations {
+                no_dmg_from: vec![Ghost],
+                hf_dmg_from: vec![],
+                db_dmg_from: vec![Fighting],
+                no_dmg_to: vec![Ghost],
+                hf_dmg_to: vec![Rock, Steel],
+                db_dmg_to: vec![]
+            }
+        }
+    }
+}
