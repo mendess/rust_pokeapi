@@ -1,4 +1,5 @@
 use ::types::TypeName;
+use ::parser::pokemon::PkTypeJson;
 
 #[derive(Debug)]
 pub struct PkType {
@@ -15,15 +16,3 @@ impl<'a> From<&'a PkTypeJson> for PkType {
     }
 }
 
-#[derive(Deserialize)]
-pub struct PkTypeJson {
-    slot: u16,
-    #[serde(rename = "type")]
-    type_name: PkTpJson,
-}
-
-#[derive(Deserialize)]
-struct PkTpJson {
-    url: String,
-    name: String,
-}

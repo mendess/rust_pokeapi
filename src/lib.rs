@@ -3,17 +3,14 @@ extern crate reqwest;
 extern crate serde_derive;
 extern crate serde_json;
 
+mod parser;
 pub mod pokemon;
-mod types;
-mod abilities;
-mod dex_error;
+pub mod types;
+pub mod abilities;
+pub mod dex_error;
 
 #[cfg(test)]
 mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
 
     #[test]
     fn fetch_pokemon_bulbasaur_name() {
@@ -25,15 +22,15 @@ mod tests {
 
     #[test]
     fn fetch_pokemon_bulbasaur_number() {
-        match super::pokemon::Pokemon::fetch("1".to_string()) {
+        match super::pokemon::Pokemon::fetch(1) {
             Ok(p) => assert_bulbasaur(p),
             Err(e) => panic!("{}", e),
         }
     }
 
     fn assert_bulbasaur(pk: super::pokemon::Pokemon) {
-        assert_eq!(pk.id, 1);
-        assert_eq!(pk.name, "bulbasaur");
+        assert_eq!(pk.number(), 1);
+        assert_eq!(pk.name(), "bulbasaur");
     }
 }
 

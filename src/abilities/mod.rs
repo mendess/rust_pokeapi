@@ -1,4 +1,6 @@
 use ::dex_error::DexError;
+use ::parser::abilities::AbilityJson;
+use serde_json::from_reader;
 
 #[derive(Debug)]
 pub struct Ability {
@@ -7,36 +9,11 @@ pub struct Ability {
     pub effect: String,
 }
 
-#[derive(Deserialize)]
-pub struct AbilityJson {
-    name: String,
-    generation: GenJson,
-    effect_entries: Vec<EffectEntryJson>,
-}
-
-#[derive(Deserialize)]
-struct GenJson {
-    url: String,
-    name: String,
-}
-
-#[derive(Deserialize)]
-struct EffectEntryJson {
-    short_effect: String,
-    effect: String,
-    language: EffectLangJson,
-}
-
-#[derive(Deserialize)]
-struct EffectLangJson {
-    url: String,
-    name: String,
-}
 
 impl Ability{
     pub fn fetch(url: String) -> Result<Ability, DexError> {
         let resp = super::reqwest::get(&url)?;
-        let ab_json :AbilityJson = super::serde_json::from_reader(resp)?;
+        let ab_json :AbilityJson = from_reader(resp)?;
         let a = Ability {
             name: ab_json.name,
             gen: gen_str_2_num(ab_json.generation.name),

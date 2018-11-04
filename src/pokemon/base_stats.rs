@@ -1,3 +1,5 @@
+use ::parser::pokemon::PkBaseStatJson;
+
 #[derive(Debug)]
 pub struct PkBaseStats {
     pub hp: u32,
@@ -19,17 +21,4 @@ impl From<Vec<PkBaseStatJson>> for PkBaseStats {
             speed: j.iter().find(|x| x.stat.name == "speed").map(|x| x.base_stat).unwrap_or(0),
         }
     }
-}
-
-#[derive(Deserialize)]
-pub struct PkBaseStatJson {
-    stat: PkStatJson,
-    effort: u32,
-    base_stat: u32,
-}
-
-#[derive(Deserialize)]
-struct PkStatJson {
-    url: String,
-    name: String,
 }
