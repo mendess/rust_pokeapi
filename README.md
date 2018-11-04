@@ -1,2 +1,2 @@
 # rust_pokeapi
-A pokedex comand-line utility
+A [poke_api](https://pokeapi.co) wrapper in rust
