@@ -10,6 +10,17 @@ pub struct PkBaseStats {
     pub speed: u32,
 }
 
+impl PkBaseStats {
+    pub fn total(&self) -> u32 {
+        self.hp
+            + self.attack
+            + self.defense
+            + self.sp_attack
+            + self.sp_defense
+            + self.speed
+    }
+}
+
 impl From<Vec<PkBaseStatJson>> for PkBaseStats {
     fn from(j: Vec<PkBaseStatJson>) -> Self {
         PkBaseStats {

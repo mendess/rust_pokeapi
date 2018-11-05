@@ -14,7 +14,7 @@ impl<'a> From<&'a PkAbilityJson> for PkAbility {
             name: ab.ability.name.clone(),
             hidden: ab.is_hidden,
             effect: match Ability::fetch(ab.ability.url.clone()) {
-                Ok(a) => a.effect,
+                Ok(a) => a.short_effect,
                 Err(_) => String::from("none"),
             }
         }

@@ -6,6 +6,7 @@ use serde_json::from_reader;
 pub struct Ability {
     pub name: String,
     pub gen: u16,
+    pub short_effect: String,
     pub effect: String,
 }
 
@@ -17,11 +18,16 @@ impl Ability{
         let a = Ability {
             name: ab_json.name,
             gen: gen_str_2_num(ab_json.generation.name),
+            short_effect: ab_json.effect_entries
+                .iter()
+                .find(|x| x.language.name == "en")
+                .map(|x| x.short_effect.clone())
+                .unwrap_or("none".to_string()),
             effect: ab_json.effect_entries
                 .iter()
                 .find(|x| x.language.name == "en")
                 .map(|x| x.effect.clone())
-                .unwrap_or("none".to_string())
+                .unwrap_or("none".to_string()),
         };
         Ok(a)
     }
