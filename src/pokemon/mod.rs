@@ -1,7 +1,7 @@
-mod types;
-mod abilities;
-mod base_stats;
 mod moves;
+pub mod types;
+pub mod abilities;
+pub mod base_stats;
 
 use pokemon::types::PkType;
 use pokemon::abilities::PkAbility;
@@ -44,14 +44,12 @@ impl From<PokemonJson> for Pokemon {
 }
 
 fn url_fetch(url: &str) -> Result<Pokemon, DexError> {
-    use reqwest::StatusCode;
     let resp = super::reqwest::get(url)?;
-    match resp.status() {
-        StatusCode::Ok => {
-            let pk :PokemonJson = from_reader(resp)?;
-            Ok(Pokemon::from(pk))
-        },
-        s => Err(DexError::Other(format!("{:?}", s))),
+    if resp.status().is_success() {
+        let pk :PokemonJson = from_reader(resp)?;
+        Ok(Pokemon::from(pk))
+    }else{
+        Err(DexError::Other(format!("{:?}", resp.status())))
     }
 }
 
