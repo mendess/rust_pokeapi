@@ -1,4 +1,5 @@
 mod moves;
+mod forms;
 pub mod types;
 pub mod abilities;
 pub mod base_stats;
@@ -7,8 +8,10 @@ use pokemon::types::PkType;
 use pokemon::abilities::PkAbility;
 use pokemon::base_stats::PkBaseStats;
 use pokemon::moves::PkMove;
+use pokemon::forms::PkForm;
 use ::dex_error::DexError;
 use ::parser::pokemon::PokemonJson;
+use ::parser::NamedAPIResource;
 
 use serde_json::from_reader;
 
@@ -19,9 +22,25 @@ pub struct Pokemon {
     height: u32,
     weight: u32,
     abilities: Vec<PkAbility>,
+    forms: Vec<Form>,
     types: Vec<PkType>,
     base_stats: PkBaseStats,
     moves: Vec<PkMove>,
+}
+
+#[derive(Debug)]
+enum Form {
+    Reference(NamedAPIResource),
+    Value(PkForm),
+}
+
+impl<'a> From<&'a NamedAPIResource> for Form {
+    fn from(n: &NamedAPIResource) -> Self {
+        Form::Reference(NamedAPIResource {
+            name: n.name.clone(),
+            url: n.url.clone(),
+        })
+    }
 }
 
 impl From<PokemonJson> for Pokemon {
@@ -37,6 +56,7 @@ impl From<PokemonJson> for Pokemon {
                 v
             },
             abilities: pk.abilities.iter().map(|x| PkAbility::from(x)).collect(),
+            forms: pk.forms.iter().map(|f| Form::from(f)).collect(),
             base_stats: PkBaseStats::from(pk.stats),
             moves: pk.moves.iter().map(|x| PkMove::from(x)).collect(),
         }
