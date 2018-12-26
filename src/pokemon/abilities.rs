@@ -1,5 +1,5 @@
-use ::abilities::Ability;
-use ::parser::pokemon::*;
+use crate::abilities::Ability;
+use crate::parser::pokemon::*;
 
 #[derive(Debug)]
 pub struct PkAbility {

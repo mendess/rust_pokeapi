@@ -1,5 +1,5 @@
-use ::types::TypeName;
-use ::parser::pokemon::PkTypeJson;
+use crate::types::TypeName;
+use crate::parser::pokemon::PkTypeJson;
 
 #[derive(Debug)]
 pub struct PkType {

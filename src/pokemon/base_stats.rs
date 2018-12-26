@@ -1,4 +1,4 @@
-use ::parser::pokemon::PkBaseStatJson;
+use crate::parser::pokemon::PkBaseStatJson;
 
 #[derive(Debug)]
 pub struct PkBaseStats {

@@ -1,5 +1,5 @@
-use ::dex_error::DexError;
-use ::parser::abilities::AbilityJson;
+use crate::dex_error::DexError;
+use crate::parser::abilities::AbilityJson;
 use serde_json::from_reader;
 
 #[derive(Debug)]

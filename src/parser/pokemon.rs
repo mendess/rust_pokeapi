@@ -1,4 +1,4 @@
-use parser::NamedAPIResource;
+use crate::parser::NamedAPIResource;
 
 #[derive(Deserialize)]
 pub struct PokemonJson {

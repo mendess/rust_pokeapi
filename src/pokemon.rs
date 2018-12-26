@@ -4,14 +4,14 @@ pub mod types;
 pub mod abilities;
 pub mod base_stats;
 
-use pokemon::types::PkType;
-use pokemon::abilities::PkAbility;
-use pokemon::base_stats::PkBaseStats;
-use pokemon::moves::PkMove;
-use pokemon::forms::PkForm;
-use ::dex_error::DexError;
-use ::parser::pokemon::PokemonJson;
-use ::parser::NamedAPIResource;
+use crate::pokemon::types::PkType;
+use crate::pokemon::abilities::PkAbility;
+use crate::pokemon::base_stats::PkBaseStats;
+use crate::pokemon::moves::PkMove;
+use crate::pokemon::forms::PkForm;
+use crate::dex_error::DexError;
+use crate::parser::pokemon::PokemonJson;
+use crate::parser::NamedAPIResource;
 
 use serde_json::from_reader;
 
@@ -74,7 +74,7 @@ fn url_fetch(url: &str) -> Result<Pokemon, DexError> {
 }
 
 impl Pokemon {
-    pub fn fetch<T: super::std::fmt::Display>(id: T) -> Result<Pokemon, DexError> {
+    pub fn fetch<T: std::fmt::Display>(id: T) -> Result<Pokemon, DexError> {
         url_fetch(&format!("https://pokeapi.co/api/v2/pokemon/{}/", id))
     }
 

@@ -24,7 +24,7 @@ impl From<reqwest::Error> for DexError {
 
 impl fmt::Display for DexError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        use dex_error::DexError::*;
+        use crate::dex_error::DexError::*;
         match self {
             JsonError(e) => write!(f, "JsonError({})", e),
             ReqwestError(e) => write!(f, "ReqwestError({})", e),

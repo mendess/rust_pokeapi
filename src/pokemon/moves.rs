@@ -1,4 +1,4 @@
-use ::parser::pokemon::PkMoveJson;
+use crate::parser::pokemon::PkMoveJson;
 
 #[derive(Debug)]
 pub struct PkMove {
